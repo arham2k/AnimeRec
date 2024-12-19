@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Recommendation Service</title>
+    <link rel="stylesheet" href="Css/style.css">
+    <style>
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            overflow: hidden;
+        }
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+        }
+
+        .slideshow-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .mySlides {
+            flex: 0 0 20%;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+    
+        .recommendations {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recommendations .mySlides {
+            flex: 0 0 20%;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .recommendations .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video background -->
+    <div class="video-background">
+        <video id="bgVideo" autoplay muted loop poster="Images/Solo2.jpg">
+            <source src="Videos/Solo.mp4" type="video/mp4">
+            <!-- You can add other video formats here -->
+        </video>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <h1 class="logo">Anime sas</h1>
+        </div>
+        <nav class="horizontal-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="recommendations.html">Recommendations</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Discover Your Next Favorite Anime</h2>
+                <p>Explore our curated recommendations and find your new favorite series.</p>
+                <form action="/recommend" method="POST" class="search-form">
+                    <input type="text" id="animeName" name="animeName" required class="search-input" placeholder="Enter your favorite anime">
+                    <button type="submit" class="search-button">Get Recommendations</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="recommendations">
+            <h2>Recommended Anime</h2>
+            <div class="slideshow-wrapper" id="recommendationsSlideshow">
+                <!-- Recommended anime will be inserted here -->
+            </div>
+            <a class="prev" onclick="prevSlide('recommendationsSlideshow')">&#10094;</a>
+            <a class="next" onclick="nextSlide('recommendationsSlideshow')">&#10095;</a>
+        </section>
+
+        <section class="carousel-section slideshow-container top-picks">
+            <h2>Top Picks</h2>
+            <div class="slideshow-wrwapper" id="topPicksSlideshow">
+                <div class="slideshow-wrapper" id="topPicksSlideshow">
+                <div class="mySlides">
+                    <img src="Images/Fre.jpg" alt="Anime 1">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Haik.jpg" alt="Anime 2">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Re.jpg" alt="Anime 3">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/OP.jpeg" alt="Anime 4">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Hell.jpeg" alt="Anime 5">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Solo2.jpg" alt="Anime 6">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Fre.jpg" alt="Anime 7">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Haik.jpg" alt="Anime 8">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/OP.jpeg" alt="Anime 9">
+                </div>
+
+                <div class="mySlides">
+                    <img src="Images/Fre.jpg" alt="Anime 10">
+                </div>
+            <a class="prev" onclick="prevSlide('topPicksSlideshow')">&#10094;</a>
+            <a class="next" onclick="nextSlide('topPicksSlideshow')">&#10095;</a>
+        </section>
+
+        <section class="carousel-section slideshow-container new-releases">
+            <h2>New Releases</h2>
+            <div class="slideshow-wrapper" id="newReleasesSlideshow">
+                <div class="mySlides">
+                    <img src="Images/Kai.jpe" alt="Anime 1">
+                </div>
+                <div class="mySlides">
+                    <img src="Images/Box.jpeg" alt="Anime 2">
+                </div>
+                <div class="mySlides">
+                    <img src="Images/Solo.jpg" alt="Anime 3">
+                </div>
+                <div class="mySlides">
+                    <img src="Images/JJK.jpg" alt="Anime 4">
+                </div>
+                <div class="mySlides">
+                    <img src="Images/SL.jpg" alt="Anime 5">
+                </div>
+                <!-- Add more new releases here -->
+            </div>
+            <a class="prev" onclick="prevSlide('newReleasesSlideshow')">&#10094;</a>
+            <a class="next" onclick="nextSlide('newReleasesSlideshow')">&#10095;</a>
+        </section>
+    </main>
+
+    <!-- Audio -->
+    <audio id="bgAudio" autoplay loop>
+        <source src="Audio/Solo.mp3" type="audio/mp3">
+        Your browser does not support the audio tag.
+    </audio>
+
+    <footer>
+        <p>&copy; 2024 Anime Recommendation Service. All rights reserved.</p>
+    </footer>
+
+    <script src="Js/script.js"></script>
+</body>
+</html>
